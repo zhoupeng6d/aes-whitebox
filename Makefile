@@ -1,5 +1,7 @@
-CFLAGS = -Og -ggdb -Wall
+CFLAGS =  /usr/local/Cellar/openssl@1.1/1.1.1g/lib/libssl.dylib /usr/local/Cellar/openssl@1.1/1.1.1g/lib/libcrypto.dylib -Og -ggdb -Wall  -v
 CXXFLAGS = $(CFLAGS) -std=c++11
+LDFLAGS =  /usr/local/Cellar/openssl@1.1/1.1.1g/lib/libssl.dylib /usr/local/Cellar/openssl@1.1/1.1.1g/lib/libcrypto.dylib
+
 
 # All tests were taken from NIST, 2001 test vectors:
 # https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38a.pdf
@@ -72,6 +74,7 @@ aes256_tests: aes_whitebox_compiler
 	./$@ cfb $(TEST_PLAIN) $(AES256_CFB_TEST_IV) $(AES256_CFB_TEST_CIPHER)
 	./$@ ofb $(TEST_PLAIN) $(AES256_OFB_TEST_IV) $(AES256_OFB_TEST_CIPHER)
 	./$@ ctr $(TEST_PLAIN) $(AES256_CTR_TEST_NONCE) $(AES256_CTR_TEST_CIPHER)
+	./$@ cfb $(TEST_PLAIN) $(AES256_CFB_TEST_IV) $(AES256_CFB_TEST_CIPHER) $(AES256_KEY)
 
 clean:
 	rm -f *.o *.a aes_whitebox_tables.cc aes_whitebox_compiler aes128_tests aes192_tests aes256_tests
